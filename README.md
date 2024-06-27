@@ -1,92 +1,92 @@
-# Cognitive Load is what matters
+# Bilişsel Yük Önemlidir
 
-*It is a living document, last update: **June 2024***
+*Bu bir yaşayan dokümandır, son güncelleme: **Haziran 2024***
 
-## Introduction
-There are so many buzzwords and best practices out there, but let's focus on something more fundamental. What matters is the amount of confusion developers feel when going through the code.
+## Giriş
+Birçok moda kelime ve en iyi uygulama var, ama daha temel bir şeye odaklanalım. Önemli olan, geliştiricilerin kodu incelerken hissettikleri kafa karışıklığıdır.
 
-Confusion costs time and money. Confusion is caused by high *cognitive load*. It's not some fancy abstract concept, but rather **a fundamental human constraint**.
+Kafa karışıklığı zaman ve paraya mal olur. Kafa karışıklığı, yüksek *bilişsel yük* nedeniyle oluşur. Bu, soyut bir kavram değil, **temel bir insan sınırlamasıdır**.
 
-Since we spend far more time reading and understanding code than writing it, we should constantly ask ourselves whether we are embedding excessive cognitive load into our code. 
+Kod yazmaktan çok daha fazla zaman harcadığımız için, sürekli olarak kodumuza aşırı bilişsel yük ekleyip eklemediğimizi sormalıyız.
 
-## Cognitive load
-> Cognitive load is how much a developer needs to think in order to complete a task.
+## Bilişsel Yük
+> Bilişsel yük, bir geliştiricinin bir görevi tamamlamak için düşünmesi gereken miktardır.
 
-When reading code, you put things like values of variables, control flow logic and call sequences into your head. The average person can hold roughly [four such things](https://github.com/zakirullin/cognitive-load/issues/16) in working memory. Once the cognitive load reaches this threshold, a significant effort is required to understand things.
+Kod okurken değişken değerlerini, kontrol akış mantığını ve çağrı dizilerini kafanızda tutarsınız. Ortalama bir kişi, işleyen hafızasında yaklaşık [dört şey](https://github.com/zakirullin/cognitive-load/issues/16) tutabilir. Bilişsel yük bu eşiğe ulaştığında, anlamak için önemli bir çaba gerektirir.
 
-*Let's say we have been asked to make some fixes to a completely unfamiliar project. We were told that a really smart developer had contributed to it. Lots of cool architectures, fancy libraries and trendy technologies were used. In other words, **the previous author had created a high cognitive load for us.***
+*Diyelim ki tamamen yabancı bir projeye bazı düzeltmeler yapmamız istendi. Bize gerçekten zeki bir geliştiricinin katkıda bulunduğu söylendi. Birçok havalı mimari, süslü kütüphaneler ve trend teknolojiler kullanılmış. Başka bir deyişle, **önceki yazar bize yüksek bilişsel yük yaratmış.***
 
 ![Cognitive Load](/img/cognitiveloadv4.png)
 
-We should reduce the cognitive load in our projects as much as possible.
+Projelerimizdeki bilişsel yükü mümkün olduğunca azaltmalıyız.
 
-The tricky part is that the previous author may not have experienced a high cognitive load due to familiarity with the project.
+Zor olan kısım, önceki yazarın projeye aşina olması nedeniyle yüksek bilişsel yük yaşamamış olabilir.
 
 <details>
-  <summary><b>Familiarity vs Simplicity</b></summary>
+  <summary><b>Aşinalık vs Basitlik</b></summary>
   <br>
-  The problem is that <b>familiarity is not the same as simplicity</b>. They <i>feel</i> the same — that same ease of moving through a space without much mental effort — but for very different reasons. Every “clever” (read: “self-indulgent”) and non-idiomatic trick you use incurs a learning penalty for everyone else. Once they have done that learning, then they will find working with the code less difficult. So it is hard to recognise how to simplify code that you are already familiar with. This is why I try to get “the new kid” to critique the code before they get too institutionalised!<br><br>
-  It is likely that the previous author(s) created this huge mess one tiny increment at a time, not all at once. So you are the first person who has ever had to try to make sense of it all at once.<br><br>
-  In my class I describe a sprawling SQL stored procedure we were looking at one day, with hundreds of lines of conditionals in a huge WHERE clause. Someone asked how anyone could have let it get this bad. I told them: “When there are only 2 or 3 conditionals, adding another one doesn’t make any difference. By the time there are 20 or 30 conditionals, adding another one doesn’t make any difference!”<br><br>
-  There is no “simplifying force” acting on the code base other than deliberate choices that you make. Simplifying takes effort, and people are too often in a hurry.<br><br>
-  <i>Thanks to <a href="https://dannorth.net">Dan North</a> for his comment above.</i><br><br>
+  Sorun şu ki <b>aşinalık basitlikle aynı şey değildir</b>. Aynı hissi verirler — fazla zihinsel çaba harcamadan bir alanda hareket etme kolaylığı — ama çok farklı nedenlerle. Kullandığınız her "akıllı" (okuyun: "kendine dönük") ve gayri-idiomatik numara, herkes için bir öğrenme cezası oluşturur. Bu öğrenmeyi tamamladıklarında, kodla çalışmak daha az zor olacaktır. Yani, zaten aşina olduğunuz kodu nasıl basitleştireceğinizi anlamak zor olabilir. Bu yüzden, kodu çok fazla içselleştirmeden önce yeni gelen kişinin kodu eleştirmesini sağlamaya çalışıyorum!<br><br>
+  Muhtemelen önceki yazar(lar) bu büyük karmaşayı bir kerede değil, küçük artışlarla oluşturdu. Bu yüzden, hepsini bir arada anlamaya çalışan ilk kişi sizsiniz.<br><br>
+  Sınıfımda bir gün yüzlerce satır koşullu ifadeler içeren geniş bir SQL saklı prosedürü incelerken biri sordu: "Bunun bu kadar kötü hale gelmesine nasıl izin verildi?" Dedim ki: “Sadece 2 veya 3 koşullu ifade olduğunda, başka bir tane eklemek fark yaratmaz. 20 veya 30 koşullu ifade olduğunda, başka bir tane eklemek fark yaratmaz!”<br><br>
+  Kodu basitleştiren bir kuvvet yoktur, sadece yaptığınız bilinçli tercihler vardır. Basitleştirmek çaba gerektirir ve insanlar çoğu zaman acele ederler.<br><br>
+  <i>Yukarıdaki yorumu için <a href="https://dannorth.net">Dan North</a>'a teşekkürler.</i><br><br>
 </details>
 
-Once you onboard new people on your project, try to measure the amount of confusion they have (pair programming may help). If they're confused for more than ~40 minutes in a row - you've got things to improve in your code.  
+Projeye yeni insanları dahil ettiğinizde, yaşadıkları kafa karışıklığını ölçmeye çalışın (çift programlama yardımcı olabilir). Eğer 40 dakikadan fazla kafa karışıklığı yaşıyorlarsa, kodunuzda geliştirilmesi gereken şeyler var demektir.
 
 <details>
-  <summary><b>Cognitive load and interruptions</b></summary>
+  <summary><b>Bilişsel yük ve kesintiler</b></summary>
   <img src="img/interruption.jpeg"><br>
 </details>
 
-## Types of cognitive load
-**Intrinsic** - caused by the inherent difficulty of a task. It can't be reduced, it's at the very heart of software development.  
+## Bilişsel Yük Türleri
+**İçsel** - bir görevin doğasından kaynaklanan zorluk. Azaltılamaz, yazılım geliştirmenin tam kalbindedir.
 
-**Extraneous** - created by the way the information is presented. Caused by factors not directly relevant to the task, such as smart author's quirks. Can be greatly reduced. We will focus on this type of cognitive load. 
+**Dışsal** - bilginin sunulma şekliyle oluşturulan. Görevle doğrudan ilgili olmayan faktörlerden kaynaklanır, örneğin zeki yazarın kaprisleri. Büyük ölçüde azaltılabilir. Bu tür bilişsel yüke odaklanacağız.
 
 ![Intrinsic vs Extraneous](/img/smartauthorv5.png)
 
-Let's jump straight to the concrete practical examples of extraneous cognitive load.
+Şimdi dışsal bilişsel yükün somut pratik örneklerine geçelim.
 
-*P.S.  contributions are welcome!*
+*Not: Katkılar memnuniyetle karşılanır!*
 
 ---
 
-We will refer to the level cognitive load as follows:  
-`🧠`: fresh working memory, zero cognitive load  
-`🧠++`: two facts in our working memory, cognitive load increased  
-`🤯`: working memory overflow, more than 4 facts  
+Bilişsel yük seviyesini şu şekilde ifade edeceğiz:  
+`🧠`: taze işleyen hafıza, sıfır bilişsel yük  
+`🧠++`: işleyen hafızamızda iki gerçek, bilişsel yük arttı  
+`🤯`: işleyen hafıza aşımı, 4'ten fazla gerçek
 
-## Complex conditionals 
+## Karmaşık Koşullar
 ```go
 if val > someConstant // 🧠+
-    && (condition2 || condition3) // 🧠+++, prev cond should be true, one of c2 or c3 has be true
-    && (condition4 && !condition5) { // 🤯, we are messed up here
+    && (condition2 || condition3) // 🧠+++, önceki koşul doğru olmalı, c2 veya c3 doğru olmalı
+    && (condition4 && !condition5) { // 🤯, burada kafamız karıştı
     ...
 }
 ```
 
-Introduce intermediate variables with meaningful names:
+Anlamlı isimlerle ara değişkenler tanıtın:
 ```go
 isValid = var > someConstant
 isAllowed = condition2 || condition3
 isSecure = condition4 && !condition5 
-// 🧠, we don't need to remember the conditions, there are descriptive variables
+// 🧠, koşulları hatırlamak zorunda değiliz, açıklayıcı değişkenler var
 if isValid && isAllowed && isSecure {
     ...
 }
 ```
 
-## Nested ifs
+## İç İf Blokları
 ```go
-if isValid { // 🧠+, okay nested code applies to valid input only
-    if isSecure { // 🧠++, we do stuff for valid and secure input only
+if isValid { // 🧠+, tamam iç içe kod sadece geçerli giriş için geçerli
+    if isSecure { // 🧠++, sadece geçerli ve güvenli giriş için işler yapıyoruz
         stuff // 🧠+++
     }
 } 
 ```
 
-Compare it with the early returns:
+Erken dönüşlerle karşılaştırın:
 ```go
 if !isValid
     return
@@ -94,49 +94,49 @@ if !isValid
 if !isSecure
     return
 
-// 🧠, we don't really care about earlier returns, if we are here then all good
+// 🧠, önceki dönüşleri gerçekten umursamıyoruz, buradaysak her şey yolunda demektir
 
 stuff // 🧠+
 ```
 
-We can focus on the happy path only, thus freeing our working memory from all sorts of preconditions.
+Sadece mutlu yola odaklanabiliriz, böylece işleyen hafızamızı her türlü ön koşuldan kurtarabiliriz.
 
-## Inheritance nightmare
-We are asked to change a few things for our admin users: `🧠`
+## Kalıtım Kabusu
+Bize yönetici kullanıcılarımız için birkaç şey değiştirilmesi söylendi: `🧠`
 
-`AdminController extends UserController extends GuestController extends BaseController`
+`AdminController, UserController'dan türetilir, GuestController, BaseController'dan türetilir`
 
-Ohh, part of the functionality is in `BaseController`, let's have a look: `🧠+`  
-Basic role mechanics got introduced in `GuestController`: `🧠++`  
-Things got partially altered in `UserController`: `🧠+++`  
-Finally we are here, `AdminController`, let's code stuff! `🧠++++`  
+Ohh, işlevselliğin bir kısmı BaseController içinde, bakalım: 🧠+
+Temel rol mekanikleri GuestController içinde tanıtılmış: 🧠++
+Şeyler kısmen UserController içinde değiştirilmiş: 🧠+++
+Sonunda buradayız, AdminController, kod yazalım! 🧠++++
 
-Oh, wait, there's `SuperuserController` which extends `AdminController`. By modifying `AdminController` we can break things in the inherited class, so let's dive in `SuperuserController` first: `🤯`
+Oh, bekleyin, SuperuserController var, bu AdminControllerdan türetilmiş. AdminControllerı değiştirerek, türetilmiş sınıfta şeyleri bozabiliriz, bu yüzden önce SuperuserControllera bakalım: 🤯
 
-Prefer composition over inheritance. We won't go into detail - there's [plenty of material](https://www.youtube.com/watch?v=hxGOiiR9ZKg) out there.
+Kalıtımdan çok kompozisyonu tercih edin. Ayrıntılara girmeyeceğiz - orada [bolca malzeme](https://www.youtube.com/watch?v=hxGOiiR9ZKg) var.
 
-## Too many small methods, classes or modules
-> Method, class and module are interchangeable in this context 
+## Çok Fazla Küçük Yöntem, Sınıf veya Modül
+> Bu bağlamda yöntem, sınıf ve modül birbirinin yerine kullanılabilir
  
-Mantras like "methods should be shorter than 15 lines of code" or "classes should be small" turned out to be somewhat wrong.
+"Yöntemler 15 satırdan kısa olmalı" veya "sınıflar küçük olmalı" gibi mantralar biraz yanlış çıktı.
 
-**Deep module** - simple interface, complex functionality  
-**Shallow module** - interface is relatively complex to the small functionality it provides 
+**Derin modül** - basit arayüz, karmaşık işlevsellik
+**Sığ modül**- sağladığı küçük işlevsellik için nispeten karmaşık arayüz
 
 ![Deep module](/img/deepmodulev5.png)
 
-Having too many shallow modules can make it difficult understand the project. **Not only do we have to keep in mind each module responsibilities, but also all their interactions**. To understand the purpose of a shallow module, we first need to look at the functionality of all the related modules. `🤯`
+Çok fazla sığ modüle sahip olmak, projeyi anlamayı zorlaştırabilir. **Sadece her modülün sorumluluklarını akılda tutmakla kalmıyoruz, aynı zamanda tüm etkileşimlerini de akılda tutmamız gerekiyor.** Sığ bir modülün amacını anlamak için, önce ilgili tüm modüllerin işlevselliğine bakmamız gerekir. 🤯
 
-> Information hiding is paramount, and we don't hide as much complexity in shallow modules.
+> Bilgi gizleme çok önemlidir ve sığ modüllerde o kadar çok karmaşıklığı gizlemiyoruz.
 
-I have two pet projects, both of them are somewhat 5K lines of code. The first one has 80 shallow classes, whereas the second one has only 7 deep classes. I haven't been maintaining any of these projects for one year and a half.
+İki evcil hayvan projem var, her ikisi de biraz 5K kod satırından oluşuyor. Birincisinde 80 sığ sınıf varken, ikincisinde yalnızca 7 derin sınıf var. Bir buçuk yıldır bu projelerin hiçbirini yürütmüyorum.
 
-Once I came back, I realised that it was extremely difficult to untangle all the interactions between those 80 classes in the first project. I would have to rebuild an enormous amount of cognitive load before I could start coding. On the other hand, I was able to grasp the second project quickly, because it had only a few deep classes with a simple interface.
+Geri döndüğümde, ilk projedeki 80 sınıf arasındaki tüm etkileşimleri çözmenin son derece zor olduğunu fark ettim. Kodlamaya başlamadan önce muazzam miktarda bilişsel yükü yeniden oluşturmam gerekecekti. Öte yandan, ikinci projeyi hızlı bir şekilde kavrayabildim çünkü basit bir arayüze sahip sadece birkaç derin sınıf vardı.
 
-> The best components are those that provide powerful functionality yet have simple interface.  
+> En iyi bileşenler, güçlü işlevsellik sağlayan ancak basit bir arayüze sahip olanlardır.
 > **John K. Ousterhout**
 
-The interface of the UNIX I/O is very simple. It has only five basic calls:
+UNIX I/O'nun arayüzü çok basittir. Sadece beş temel çağrıya sahiptir:
 ```python
 open(path, flags, permissions)
 read(fd, buffer, count)
@@ -145,12 +145,12 @@ lseek(fd, offset, referencePosition)
 close(fd)
 ```
 
-A modern implementation of this interface has **hundreds of thousands of lines of code**. Lots of complexity is hidden under the hood. Yet it is easy to use due to its simple interface.
+Bu arayüzün modern bir uygulaması **yüz binlerce satır kod** içerir. Çok fazla karmaşıklık perdenin altında gizlidir. Yine de basit arayüzü sayesinde kullanımı kolaydır.
 
-> This deep module example is taken from the book [A Philosophy of Software Design](https://web.stanford.edu/~ouster/cgi-bin/book.php) by John K. Ousterhout. Not only does this book cover the very essence of complexity in software development, but it also has the greatest interpretation of Parnas' influential paper [On the Criteria To Be Used in Decomposing Systems into Modules](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf). Both are essential reads. Other related readings: [It's probably time to stop recommending Clean Code](https://qntm.org/clean), [Small Functions considered Harmful](https://copyconstruct.medium.com/small-functions-considered-harmful-91035d316c29), [Linear code is more readable](https://blog.separateconcerns.com/2023-09-11-linear-code.html).
+> Bu derin modül örneği John K. Ousterhout'un [Yazılım Tasarımının Felsefesi](https://web.stanford.edu/~ouster/cgi-bin/book.php) adlı kitabından alınmıştır. Bu kitap yalnızca yazılım geliştirmedeki karmaşıklığın özünü ele almakla kalmaz, aynı zamanda Parnas'ın etkili makalesinin [Sistemleri Modüllere Ayırmada Kullanılacak Kriterler Üzerine](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf) en iyi yorumunu da içerir. Her ikisi de olmazsa olmaz okumalardır. Diğer ilgili okumalar: [Muhtemelen Temiz Kod'u önermeyi bırakmanın zamanı geldi](https://qntm.org/clean), [Küçük Fonksiyonlar Zararlı Olarak Kabul Ediliyor](https://copyconstruct.medium.com/small-functions-considered-harmful-91035d316c29), [Doğrusal kod daha okunabilir](https://blog.separateconcerns.com/2023-09-11-linear-code.html).
+Eğer bizim çok fazla sorumluluğu olan şişkin objelerini desteklediğimizi düşünüyorsanız yanılıyorsunuz.
 
-If you think we are rooting for bloated God objects with too many responsibilities, you got it wrong.  
-
+**[Devam Edecek]**
 ## Too many shallow microservices
 We can apply the above scale-agnostic principle to microservices architecture as well. Too many shallow microservices won't do any good - the industry is heading towards somewhat "macroservices", i.e., services that aren't that shallow. One of the worst and hardest to fix phenomena is so-called distributed monolith, which is often the result of this overly granular shallow separation.
 
