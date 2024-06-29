@@ -150,157 +150,142 @@ Bu arayüzün modern bir uygulaması **yüz binlerce satır kod** içerir. Çok 
 > Bu derin modül örneği John K. Ousterhout'un [Yazılım Tasarımının Felsefesi](https://web.stanford.edu/~ouster/cgi-bin/book.php) adlı kitabından alınmıştır. Bu kitap yalnızca yazılım geliştirmedeki karmaşıklığın özünü ele almakla kalmaz, aynı zamanda Parnas'ın etkili makalesinin [Sistemleri Modüllere Ayırmada Kullanılacak Kriterler Üzerine](https://www.win.tue.nl/~wstomv/edu/2ip30/references/criteria_for_modularization.pdf) en iyi yorumunu da içerir. Her ikisi de olmazsa olmaz okumalardır. Diğer ilgili okumalar: [Muhtemelen Temiz Kod'u önermeyi bırakmanın zamanı geldi](https://qntm.org/clean), [Küçük Fonksiyonlar Zararlı Olarak Kabul Ediliyor](https://copyconstruct.medium.com/small-functions-considered-harmful-91035d316c29), [Doğrusal kod daha okunabilir](https://blog.separateconcerns.com/2023-09-11-linear-code.html).
 Eğer bizim çok fazla sorumluluğu olan şişkin objelerini desteklediğimizi düşünüyorsanız yanılıyorsunuz.
 
-**[Devam Edecek]**
-## Too many shallow microservices
-We can apply the above scale-agnostic principle to microservices architecture as well. Too many shallow microservices won't do any good - the industry is heading towards somewhat "macroservices", i.e., services that aren't that shallow. One of the worst and hardest to fix phenomena is so-called distributed monolith, which is often the result of this overly granular shallow separation.
+## Çok sayıda yüzeysel mikroservis
+Yukarıdaki ölçek-agnostik ilkeyi mikroservis mimarisi için de uygulayabiliriz. Çok sayıda yüzeysel mikroservisin pek faydası olmayacak - endüstri bir nebze "makroservislere" doğru ilerliyor, yani çok derin olmayan servisler. Bu aşırı granüler yüzeysel ayrımın sonucu olan en kötü ve en zor düzeltilen olgulardan biri ise dağıtık monolit olarak adlandırılıyor.
 
-I once consulted a startup where a team of three developers introduced 17(!) microservices. They were 10 months behind schedule and appeared nowhere close to the public release. Every new requirement led to changes in 4+ microservices. Diagnostic difficulty in integration space skyrocketed. Both time to market and cognitive load were unacceptably high. `🤯`  
+Bir startupta danışmanlık yaptığım bir zaman, üç geliştiriciden oluşan bir ekip 17(!) mikroservis tanıttı. Planlanan sürenin 10 ay gerisindeydiler ve halka sunulmaya hiç yaklaşamamışlardı. Her yeni gereksinim 4'ten fazla mikroserviste değişiklik yapılmasına yol açıyordu. Entegrasyon alanında teşhis zorluğu doruk noktaya ulaştı. Hem pazara çıkış süresi hem de bilişsel yük kabul edilemez derecede yüksekti. 🤯
 
-Is this the right way to approach the uncertainty of a new system? It's enormously difficult to elicit the right logical boundaries in the beginning, and by introducing too many microservices we make things worse. The team's only justification was: "The F(M)AANG companies proved microservices architecture to be effective". *Hello, you got to stop dreaming big.*
+Yeni bir sistemde belirsizliğe bu şekilde mi yaklaşmalıyız? Başlangıçta doğru mantıksal sınırları belirlemek olağanüstü derecede zordur ve çok sayıda mikroservis tanıtarak işleri daha da kötüleştiririz. Ekip sadece şunu savunuyordu: "F(M)AANG şirketleri mikroservis mimarisinin etkili olduğunu kanıtladı". Merhaba, hayal kurmayı bırakmalısınız.
 
-Checkout the [Tanenbaum–Torvalds debate](https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate). The claim suggested that Linux's monolithic design was flawed and obsolete, and that a microkernel architecture should be used instead. Indeed, the microkernel design seemed to be superior "from a theoretical and aesthetical" point of view. Three decades on, microkernel-based GNU Hurd is still in development, and monolithic Linux is everywhere - this page is powered by Linux, your smart teapot is powered by Linux.  
+Tanenbaum-Torvalds tartışmasına bir göz atın. Linux'un monolitik tasarımının kusurlu ve çağdışı olduğu iddia edildi ve bunun yerine mikroçekirdek mimarisi kullanılmalıydı. Gerçekten de, mikroçekirdek tasarımı "teorik ve estetik" açıdan üstün görünüyordu. Üç on yıl sonra, mikroçekirdek tabanlı GNU Hurd hâlâ geliştirme aşamasında ve monolitik Linux her yerde - bu sayfa Linux tarafından desteklenmektedir, akıllı çaydanlık Linux tarafından çalıştırılmaktadır.
 
-A well-crafted monolith with truly isolated modules is often much more flexible than a bunch of microservices. It also requires far less cognitive effort to maintain. It's only when the need for separate deployments becomes crucial (e.g. development team scaling) that you should consider adding a network layer between the modules (future microservices).
+Gerçekten izole edilmiş modüllerle iyi bir şekilde oluşturulmuş bir monolit, genellikle bir dizi mikroservisten çok daha esnektir. Ayrıca, bakımı için çok daha az bilişsel çaba gerektirir. Modüller arasına bir ağ katmanı eklemeyi düşünmelisiniz (gelecekteki mikroservisler gibi) sadece ayrı dağıtımların gerekliliği belirleyici hale geldiğinde.
 
-## Feature-rich languages
-We feel excited when new features got released in our favourite language. We spend some time learning these features, we build code upon them.
+## Özelliklerle dolu diller
+## Özelliklerle dolu diller
+Favori dilimizde yeni özellikler çıktığında heyecanlanırız. Bu özellikleri öğrenmek için zaman harcarız, üzerine kodlar oluştururuz.
 
-If there are lots of features, we may spend half an hour playing with a few lines of code, to use one or another feature. And it's kind of a waste of time. But what's worse, **when you come back later, you would have to recreate that thought process!** `🤯`
+Eğer çok fazla özellik varsa, bazen birkaç satır kodla oynamak için yarım saat harcayabiliriz, bir özellik kullanmak için diğerine geçmek için. Bu zaman kaybı gibi görünüyor. Ama daha da kötüsü, **daha sonra geri döndüğünüzde, o düşünce sürecini yeniden oluşturmanız gerekebilir!** `🤯`
 
-**You not only have to understand this complicated program, you have to understand why a programmer decided this was the way to approach a problem from the features that are available.**  
+**Bu ifadeler, Rob Pike tarafından yapılmıştır.**
 
-These statements are made by none other than Rob Pike.
+> Seçeneklerin sayısını sınırlayarak bilişsel yükü azaltın.
 
-> Reduce cognitive load by limiting the number of choices.  
-
-Language features are OK, as long as they are orthogonal to each other.
+Dil özellikleri, birbirine dik olduğu sürece sorun değil.
 
 <details>
-  <summary><b>Thoughts from an engineer with 20+ years of C++ experience ⭐️</b></summary>
+  <summary><b>20+ yıllık C++ deneyimine sahip bir mühendisin düşünceleri ⭐️</b></summary>
   <br>
-  I was looking at my RSS reader the other day and noticed that I have somewhat three hundred unread articles under the "C++" tag. I haven't read a single article about the language since last summer, and I feel great!<br><br>
-  I've been using C++ for 20 years for now, that's almost two-thirds of my life. Most of my experience lies in dealing with the darkest corners of the language (such as undefined behaviours of all sorts). It's not a reusable experience, and it's kind of creepy to throw it all away now.<br><br>
-  Like, can you imagine, the token <code>||</code> has a different meaning in <code>requires ((!P&lt;T&gt; || !Q&lt;T&gt;))</code> and in <code>requires (!(P&lt;T&gt; || Q&lt;T&gt;))</code>. The first is the constraint disjunction, the second is the good-old logical OR operator, and they behave differently.<br><br>
-  You can't allocate space for a trivial type and just <code>memcpy</code> a set of bytes there without extra effort - that won't start the lifetime of an object. This was the case before C++20. It was fixed in C++20, but the cognitive load of the language has only increased.<br><br>
-  Cognitive load is constantly growing, even though things got fixed. I should know what was fixed, when it was fixed, and what it was like before. I am a professional after all. Sure, C++ is good at legacy support, which also means that you <b>will face</b> that legacy. For example, last month a colleague of mine asked me about some behaviour in C++03. <code>🤯</code><br><br>
-  There were 20 ways of initialization. Uniform initialization syntax has been added. Now we have 21 ways of initialization. By the way, does anyone remember the rules for selecting constructors from the initializer list? Something about implicit conversion with the least loss of information, <i>but if</i> the value is known statically, then... <code>🤯</code><br><br>
-  <b>This increased cognitive load is not caused by a business task at hand. It is not an intrinsic complexity of the domain. It is just there due to historical reasons</b> (<i>extraneous cognitive load</i>).<br><br>
-  I had to come up with some rules. Like, if that line of code is not as obvious and I have to remember the standard, I better not write it that way. The standard is somewhat 1500 pages long, by the way.<br><br>
-  <b>By no means I am trying to blame C++.</b> I love the language. It's just that I am tired now.
+  Geçenlerde RSS okuyucuma baktım ve "C++" etiketi altında yaklaşık üç yüz okunmamış makale olduğunu fark ettim. Geçen yazdan beri dil hakkında hiçbir makale okumadım ve harika hissediyorum!<br><br>
+  Şu anda 20 yıldır C++ kullanıyorum, bu hayatımın neredeyse üçte ikisi demek. Deneyimimin çoğu dilin en karanlık köşeleriyle uğraşmakla geçiyor (tanımsız davranışlar gibi). Bu tekrar kullanılabilir bir deneyim değil ve şimdi hepsini atmak biraz ürkütücü.<br><br>
+  Mesela, `||` sembolünün biri `requires ((!P<T> || !Q<T>))` ve diğeri `requires (!(P<T> || Q<T>))` içinde farklı anlamları olduğunu hayal edebilir misiniz? İlkisi kısıtlama bağlacı, ikincisi ise bildiğimiz mantıksal VEYA operatörü, ve farklı davranışlar sergiliyorlar.<br><br>
+  Bir trivial tür için bellek ayıramaz ve sadece bir set baytı `memcpy` ile oraya kopyalayamazsınız - bu bir nesnenin yaşamını başlatmazdı. Bu durum C++20'den önce böyleydi. C++20'de düzeltildi ama dilin bilişsel yükü sadece arttı.<br><br>
+  Şey, şeyler düzeltilse de bilişsel yük sürekli artıyor. Ne zaman neyin düzeltildiğini, ne zaman nasıl olduğunu bilmeliyim. Sonuçta profesyonelim. C++ mirasıyla uğraşmayı seven bir dil. Mesela geçen ay bir meslektaşım bana C++03'te bazı davranışlar hakkında sordu. `🤯`<br><br>
+  20 farklı başlatma yöntemi vardı. Birleşik başlatma sözdizimi eklendi. Şimdi 21 başlatma yöntemimiz var. Bu arada, başlatma listesinden yapıcı seçme kurallarını hatırlayan var mı? Bir şeyler, dolaylı dönüşümle en az kayıpla bilgi kaybı yaşamadan seçimle ilgili, <i>ama eğer</i> değer statik olarak biliniyorsa... `🤯`<br><br>
+  <b>Bu artan bilişsel yük, eldeki iş görevinden kaynaklanmıyor. Alanın özgül karmaşıklığı değil. Tarihsel nedenlerden dolayı orada</b> (<i>fazladan bilişsel yük</i>).<br><br>
+  Bazı kurallar koymak zorunda kaldım. Mesela, eğer o kod satırı açık değilse ve standartı hatırlamam gerekiyorsa, o şekilde yazmam daha iyi olabilir. Bu arada, standart yaklaşık olarak 1500 sayfa uzunluğunda.<br><br>
+  <b>Kesinlikle C++'ı suçlamaya çalışmıyorum.</b> Dil seviyorum. Sadece artık yoruldum.
 </details>
 
 
-## Business logic and HTTP status codes
-On the backend we return:  
-`401` for expired jwt token  
-`403` for not enough access  
-`418` for banned users  
+## İş mantığı ve HTTP durum kodları
+Arka planda şunları döndürüyoruz:
+- `401` süresi dolmuş JWT token için
+- `403` yeterli erişim olmadığı için
+- `418` yasaklanmış kullanıcılar için
 
-The guys on the frontend use backend API to implement login functionality. They would have to temporarily  create the following cognitive load in their brains:  
-`401` is for expired jwt token // `🧠+`, ok just temporary remember it  
-`403` is for not enough access // `🧠++`  
-`418` is for banned users // `🧠+++`  
+Ön taraftaki ekip, giriş işlevselliğini uygulamak için backend API'sini kullanıyor. Geçici olarak aşağıdaki bilişsel yükü oluşturmalılar:
+- `401`, süresi dolmuş JWT token için // `🧠+`, tamam sadece geçici olarak hatırlayın
+- `403`, yeterli erişim için // `🧠++`
+- `418`, yasaklanmış kullanıcılar için // `🧠+++`
 
-Frontend developers would (hopefully) introduce some kind `numeric status -> meaning` dictionary on their side, so that subsequent generations of contributors wouldn't have to recreate this mapping in their brains.
+Ön taraftaki geliştiriciler (umuyorum ki) sayısal durum -> anlam sözlüğü gibi bir şey oluşturacaklar, böylece sonraki katkı sağlayıcılarının bu eşleştirmeyi yeniden oluşturması gerekmez.
 
-Then QA people come into play:
-"Hey, I got `403` status, is that expired token or not enough access?"
-**QA people can't jump straight to testing, because first they have to recreate the cognitive load that the guys on the backend once created.**
+Sonra test ekibi devreye giriyor:
+"Hey, `403` durumu aldım, bu süresi dolmuş token mı yoksa yeterli erişim mi?"
 
-Why hold this custom mapping in our working memory? It's better to abstract away your business details from the HTTP transfer protocol, and return self-descriptive codes directly in the response body:
+**Test ekibi, test etmeye doğrudan geçemiyor, çünkü önce backend tarafında yapılan bilişsel yükü yeniden oluşturmak zorundalar.**
+
+Neden bu özel eşlemeyi çalışma belleğimizde tutalım? İş detaylarınızı HTTP iletim protokolünden soyutlamak ve yanıt gövdesinde doğrudan kendini açıklayan kodları döndürmek daha iyidir:
 ```json
 {
     "code": "jwt_has_expired"
 }
 ```
+Ön taraftaki bilişsel yük: 🧠 (taze, zihin boş)
+Test ekibindeki bilişsel yük: 🧠
 
-Cognitive load on the frontend side: `🧠` (fresh, no facts are held in mind)  
-Cognitive load on the QA side: `🧠`
+Veritabanında veya başka yerlerdeki sayısal durumlar için aynı kural geçerlidir - kendini açıklayan dizeleri tercih edin. Bellek optimizasyonu için 640K bilgisayarlar çağında değiliz.
 
-The same rule applies to all sorts of numeric statuses (in database or wherever) - prefer self-describing strings. We are not in the era of 640K computers to optimise for memory.  
+>İnsanlar 401 ve 403 arasında tartışma zamanı harcıyor, anlama düzeylerine göre seçimler yapıyorlar. Ama sonunda hiçbir anlam ifade etmiyor. Hataları kullanıcıyla ilgili veya sunucuyla ilgili olarak ayırabiliriz, ama bundan başka her şey biraz belirsiz. Bu gizemli "RESTful API"yi takip etmek ve çeşitli HTTP fiillerini ve durumlarını kullanmak gibi bir standardın gerçekte var olmadığını söylemek gerekir. Konu hakkında tek geçerli belge, 2000 yılına dayanan Roy Fielding'in yayınladığı bir makaledir ve fiiller ve durumlar hakkında hiçbir şey söylemez. İnsanlar sadece birkaç temel HTTP durumu ve sadece POST işlemleri ile de idare ediyorlar ve işleri gayet yolunda gidiyor.
 
-> People spend time arguing between `401` and `403`, making choices based on their level of understanding. But in the end it just doesn't make any sense. We can separate errors into either user-related or server-related, but apart from that, things are kind of blurry. As for following this mystical "RESTful API" and using all sorts of HTTP verbs and statuses, the standard simply doesn't exist. The only valid document on the matter is a paper published by Roy Fielding, dated back in 2000, and it says nothing about verbs and statuses. People get along with just a few basic HTTP statuses and POSTs only, and they are doing just fine.
+P.S. "Kimlik doğrulama" ve "yetkilendirme" arasındaki ayrımı yapmak genellikle zihinsel olarak yorucu olabilir. Bilişsel yükü azaltmak için "giriş" ve "izinler" gibi daha basit terimler kullanabiliriz.
 
-P.S. It's often mentally taxing to distinguish between "authentication" and "authorization". We can use simpler terms like ["login" and "permissions"](https://ntietz.com/blog/lets-say-instead-of-auth/) to reduce the cognitive load.
+## DRY prensibini kötüye kullanma
 
-## Abusing DRY principle
+"Kendini tekrar etme" - yazılım mühendisi olarak öğretilen ilk prensiplerden biridir. Bu prensip, genelde iyi ve temel bir kural olmasına rağmen, aşırı kullanıldığında bizleri kaldıramayacağımız bilişsel yüklerle karşı karşıya bırakabilir.
 
-Do not repeat yourself - that is one of the first principles you are taught as a software engineer. It is so deeply embedded in ourselves that we can not stand the fact of a few extra lines of code. Although in general a good and fundamental rule, when overused it leads to the cognitive load we can not handle.
+Günümüzde, herkes mantıksal olarak ayrılmış bileşenlere dayalı yazılımlar inşa ediyor. Bu bileşenler genellikle ayrı hizmetleri temsil eden birden fazla kod tabanına dağılmış durumda. Her türlü tekrarı ortadan kaldırmaya çalışırken, ilgisiz bileşenler arasında sıkı bağlar oluşturma riski taşırsınız. Bir bölümde yapılan değişiklikler, görünüşte ilgisiz diğer alanlarda istenmeyen sonuçlara yol açabilir. Ayrıca, bireysel bileşenleri değiştirmeyi veya değiştirmeyi mümkün kılmadan tüm sistemi etkilemeye başlayabilir. `🤯`
 
-Nowadays, everyone builds software based on logically separated components. Often those are distributed among multiple codebases representing separate services. When you strive to eliminate any repetition, you might end up creating tight coupling between unrelated components. As a result changes in one part may have unintended consequences in other seemingly unrelated areas. It can also hinder the ability to replace or modify individual components without impacting the entire system. `🤯`  
+Aslında, aynı sorun tek bir modül içinde bile ortaya çıkabilir. Algılanan benzerliklere dayanarak çok erken ortak işlevsellik çıkarabilirsiniz, ancak uzun vadede gerçekte var olmayabilirler. Bu gereksiz soyutlamaların, değiştirmesi veya genişletmesi zor olan gereksiz soyutlamaların ortaya çıkmasına neden olabilir.
 
-In fact, the same problem arises even within a single module. You might extract common functionality too early, based on perceived similarities that might not actually exist in the long run. This can result in unnecessary abstractions that are difficult to modify or extend.  
+Rob Pike bir zamanlar şöyle demişti:
 
-Rob Pike once said:
+> Biraz kopyalama, biraz bağımlılıktan daha iyidir.
 
-> A little copying is better than a little dependency.  
+Bu prensibin kötüye kullanımı, dolaylı bağlantılar (veya gereksiz bağlantılar), erken soyutlamalar ve büyük, genel çözümler, bakım karmaşıklığı ve yüksek bilişsel yük ile sonuçlanabilir.
 
-We are tempted to not reinvent the wheel so strong that we are ready to import large, heavy libraries to use a small function that we could easily write by ourselves. It introduces unnecessary dependencies and bloated code. Make informed decisions about when to import external libraries and when it is more appropriate to write concise, self-contained code snippets to accomplish smaller tasks.
+## Bir çerçeve ile sıkı bağlantı
+Çerçeveler (örneğin, **Spring**, **Django** gibi) kendi hızlarında evrilir, ki çoğu durumda bu bizim projemizin yaşam döngüsü ile uyuşmaz.
 
-Abuse of this principle could lead to indirect coupling (or just unnecessary coupling), premature abstractions and large, generic solutions, maintenance complexity, high cognitive load.
+Çerçeveye aşırı güvenmekle, tüm gelecek geliştiricilerin ilk önce o çerçeveyi (veya özel sürümünü) öğrenmesini zorunlu kılıyoruz. Çerçeveler bize MVP'leri (Minimum Viable Product - En Az Viable Ürün) günler içinde başlatma imkanı verse de, uzun vadede gereksiz karmaşıklık ve bilişsel yük eklemeye eğilimlidirler.
 
-## Tight coupling with a framework
-Frameworks evolve at their own pace, which in most cases doesn't match the lifecycle of our project.
+Dahası, bir noktada çerçeveler, mimariye uymayan yeni bir gereksinimle karşılaşıldığında önemli bir kısıtlama haline gelebilir. Bundan sonra insanlar, çerçeveyi çatallayarak kendi özel sürümlerini sürdürmeye başlarlar. Yeni bir katılımcının herhangi bir değer sunabilmesi için (yani bu özel çerçeveyi öğrenmesi için) oluşturması gereken bilişsel yük miktarını düşünün. `🤯`
 
-By relying too heavily on a framework, we force all upcoming developers to learn that framework first (or its particular version). Even though frameworks enable us to launch MVPs in a matter of days, in the long run they tend to add unnecessary complexity and cognitive load.
+**Kesinlikle her şeyi sıfırdan icat etmemizi savunmuyoruz!**
 
-Worse yet, at some point frameworks can become a significant constraint when faced with a new requirement that just doesn't fit the architecture. From here onwards people end up forking a framework and maintaining their own custom version. Imagine the amount of cognitive load a newcomer would have to build (i.e. learn this custom framework) in order to deliver any value. `🤯`
+Kodumuzu nispeten çerçeve-bağımsız bir şekilde yazabiliriz. İş mantığı çerçevede değil, onun bileşenlerini kullanmalıdır. Çerçeveyi temel mantığınızın dışına yerleştirin. Çerçeveyi kitaplık gibi kullanın. Bu, yeni katılımcıların çerçeveyle ilgili karmaşıklık kalıntılarını gözden geçirmeden ilk günden itibaren katkı sağlamasına olanak tanır.
 
-**By no means do we advocate to invent everything from scratch!**
+## Hexagonal/Onion mimarisi
+Bununla ilgili bazı mühendislik heyecanları var.
 
-We can write code in a somewhat framework-agnostic way. The business logic should not reside within a framework; rather, it should use the framework's components. Put a framework outside of your core logic. Use the framework in a library-like fashion. This would allow new contributors to add value from day one, without the need of going through debris of framework-related complexity first.
-
-## Hexagonal/Onion architecture
-There is a certain engineering excitement about all this stuff.
-
-I myself was a passionate advocate of Onion Architecture for years. I used it here and there and encouraged other teams to do so. The complexity of our projects went up, the sheer number of files alone had doubled. It felt like we were writing a lot of glue code. On ever changing requirements we had to make changes across multiple layers of abstractions, it all became tedious. `🤯`
-
-Jumping from call to call to read along and figure out what goes wrong and what is missing is a vital requirement to quickly solve problem. With this architecture’s layer uncoupling it requires an exponential factor of extra, often disjointed, traces to get to the point where the failure occurs. Every such trace takes space in our limited working memory. `🤯`  
-
-This architecture was something that made intuitive sense at first, but every time we tried applying it to projects it made a lot more harm than good. In the end, we gave it all up in favour of the good old dependency inversion principle. **No port/adapter terms to learn, no unnecessary layers of horizontal abstractions, no extraneous cognitive load.**
-
-> Do not add layers of abstractions for the sake of an architecture. Add them whenever you need an extension point that is justified for practical reasons. **[Layers of abstraction aren't free of charge](https://blog.jooq.org/why-you-should-not-implement-layered-architecture), they are to be held in our working memory**.  
-
-Even though these layered architectures have accelerated an important shift from traditional database-centric applications to a somewhat infrastructure-independent approach, where the core business logic is independent of anything external, the idea is by no means novel.  
-
-These architectures are not fundamental, they are just subjective, biased consequences of more fundamental principles. Why rely on those subjective interpretations? Follow the fundamentals instead: dependency inversion principle, isolation, single source of truth, true invariant, complexity, cognitive load and information hiding.
-
-[Discussion](https://github.com/zakirullin/cognitive-load/discussions/24)
+Ben yıllar boyunca **Onion Mimarisi**'nin tutkulu bir savunucusuydum. Bunu burada ve şurada kullandım ve diğer ekipleri de teşvik ettim. Projelerimizin karmaşıklığı arttı
 
 ## DDD
-Domain-driven design has some great points, although it is often misinterpreted. People say "We write code in DDD", which is a bit strange, because DDD is about problem space, not about solution space.
+Alan odaklı tasarım (Domain-driven design - DDD), bazı harika noktalara sahiptir, ancak genellikle yanlış yorumlanır. İnsanlar "Biz DDD'de kod yazıyoruz" derler, bu biraz garip çünkü DDD, çözüm alanı değil, sorun alanıyla ilgilidir.
 
-Ubiquitous language, domain, bounded context, aggregate, event storming are all about problem space. They are meant to help us learn the insights about the domain and extract the boundaries. DDD enables developers, domain experts and business people to communicate effectively using a single, unified language. Rather than focusing on these problem space aspects of DDD, we tend to emphasise particular folder structures, services, repositories, and other solution space techniques. 
+Evrensel dil, alan, sınırlı bağlam, birleşik, olay fırtınası hepsi sorun alanıyla ilgilidir. Bu unsurların amacı, alan hakkında içgörüler kazanmamıza ve sınırları çıkarmamıza yardımcı olmaktır. DDD, geliştiricilerin, alan uzmanlarının ve iş insanlarının tek bir birleşik dil kullanarak etkili iletişim kurmalarını sağlar. Ancak DDD'nin bu sorun alanı yönlerine odaklanmak yerine, genellikle belirli klasör yapıları, servisler, depolar ve diğer çözüm alanı tekniklerini vurgularız.
 
-Chances are that the way we interpret DDD is likely to be unique and subjective. And if we build code upon this understanding, i.e., if we create a lot of extraneous cognitive load - future developers are doomed. `🤯`
+Muhtemelen DDD'yi nasıl yorumladığımız benzersiz ve öznel olma eğilimindedir. Ve eğer bu anlayış üzerine kod inşa edersek, yani gereksiz bilişsel yük oluşturursak - gelecekteki geliştiriciler mahvolur. `🤯`
 
-## Learning from the Giants
-Take a look at the overarching design principles of one of the biggest tech companies:  
-`Clarity`: The code’s purpose and rationale is clear to the reader.  
-`Simplicity`: The code accomplishes its goal in the simplest way possible.  
-`Concision`: The code is easy to discern the relevant details, and the naming and structure guide the reader through these details.  
-`Maintainability`: The code is easy for a future programmer to modify correctly.  
-`Consistency`: The code is consistent with the broader codebase.  
+## Devlerden Öğrenmek
+En büyük teknoloji şirketlerinden birinin genel tasarım prensiplerine bir göz atın:
+- **Netlik**: Kodun amacı ve mantığı okuyucu için açıkça anlaşılır.
+- **Basitlik**: Kod, hedefini en basit şekilde gerçekleştirir.
+- **Özlülük**: Kod, ilgili detayları ayırt etmek kolaydır ve isimlendirme ile yapı, okuyucuyu bu detaylar boyunca yönlendirir.
+- **Bakım Kolaylığı**: Kodun gelecekteki bir programcı tarafından doğru bir şekilde değiştirilmesi kolaydır.
+- **Tutarlılık**: Kod, geniş kod tabanıyla tutarlıdır.
 
-Does the new fancy buzzword comply with these principles? Or all it does is creating extraneous cognitive load?
+Yeni moda kelime bu prensiplere uyuyor mu? Yoksa sadece gereksiz bilişsel yük oluşturuyor mu?
 
 <details>
-  <summary><b>Here's a fun picture</b></summary>
+  <summary><b>Burada eğlenceli bir resim var</b></summary>
   <img src="img/complexity.png"><br>
-  Code Complexity vs. Experience from <a href="https://twitter.com/flaviocopes">@flaviocopes</a>
+  Kod Karmaşıklığı vs. Deneyim, <a href="https://twitter.com/flaviocopes">@flaviocopes</a> tarafından
 </details>
 
-> Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.  
+> Hata ayıklama, ilk olarak kodu yazmaktan iki kat daha zordur. Dolayısıyla, kodu mümkün olduğunca akıllıca yazarsanız, tanım gereği, onu hata ayıklamak için yeterince akıllı değilsinizdir.
 > **Brian Kernighan**
 
 ## Conclusion
-*The intricate and multifaceted nature of cognitive load within the realm of comprehension and problem-solving necessitates a diligent and strategic approach in order to navigate the complexities and optimize mental capacity allocation.* `🤯`  
+*Zihinsel yükün anlama ve problem çözme alanındaki karmaşık ve çok yönlü doğası, karmaşıklıkları yönetmek ve zihinsel kapasite tahsisini optimize etmek için dikkatli ve stratejik bir yaklaşım gerektirir.* `🤯`
 
-Do you feel it? The above statement is difficult to understand. We have just created an unnecessary cognitive load in your head. **Do not do this to your colleagues.**
+Hissettiniz mi? Yukarıdaki ifadeyi anlamak zor, değil mi? Kafanızda gereksiz bir bilişsel yük oluşturduk. **İş arkadaşlarınıza bunu yapmayın.**
 
 ![Smart Author](/img/smartauthorv5.png)
 
-We should reduce any cognitive load above and beyond what is intrinsic to the work we do. 
+Yaptığımız işin içsel doğasından kaynaklanan bilişsel yükü mümkün olan en aza indirmeliyiz.
 
 ---
-Follow on [Twitter](https://twitter.com/zakirullin), [GitHub](https://github.com/zakirullin) or connect on [LinkedIn](https://www.linkedin.com/in/zakirullin/)
+
+Orjinal Yazı Sahibi Takip et: [Twitter](https://twitter.com/zakirullin), [GitHub](https://github.com/zakirullin) veya bağlantı kur: [LinkedIn](https://www.linkedin.com/in/zakirullin/)
